@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Siber güvenlik eğitimleri ve danışmanlık hizmetleri - Dijital dünyada güvenle yol alın">
+  <meta name="keywords" content="siber güvenlik, etik hacker, bilgi güvenliği, siber eğitim">
+  <meta name="author" content="Siber Kılavuz">
+  <meta property="og:title" content="Siber Kılavuz - Profesyonel Siber Güvenlik Çözümleri">
+  <meta property="og:description" content="Dijital güvenlik konusunda uzman rehberlik ve eğitim hizmetleri">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.siberkilavuz.com">
+  <title>Siber Kılavuz | Profesyonel Siber Güvenlik Çözümleri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff5722;
+      --primary-dark: #e64a19;
+      --secondary: #ffc107;
+      --dark: #121212;
+      --darker: #0a0a0a;
+      --light: #f5f5f5;
+      --gray: #424242;
+      --success: #4caf50;
+      --info: #2196f3;
+      --warning: #ff9800;
+      --danger: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(30%) saturate(120%);
+      opacity: 0.8;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    header {
+      background: linear-gradient(to right, rgba(18, 18, 18, 0.9), rgba(33, 33, 33, 0.9));
+      padding: 4rem 1rem;
+      text-align: center;
+      animation: fadeIn 1s ease-out forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+
+    header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: var(--light);
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav a:hover, nav a:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    nav a.active {
+      background-color: var(--darker);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeInUp 0.6s ease-out forwards;
+      min-height: 60vh;
+    }
+
+    .active-section {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+
+    .training-card {
+      background: linear-gradient(to right bottom, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+      padding: 2rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--secondary);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .training-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .training-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 87, 34, 0.05) 100%);
+      z-index: -1;
+    }
+
+    .training-card h3 {
+      margin-top: 0;
+      color: var(--secondary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .training-card p {
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, var(--primary-dark), var(--primary));
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-outline:hover {
+      background: var(--secondary);
+      color: var(--dark);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: var(--light);
+      background: var(--gray);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      background: var(--primary);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--gray);
+      border-radius: 4px;
+      background: rgba(30, 30, 30, 0.8);
+      color: var(--light);
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    footer {
+      text-align: center;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      padding: 2rem 1rem;
+      color: white;
+      position: relative;
+      z-index: 1;
+      margin-top: 3rem;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, var(--secondary), var(--primary));
+    }
+
+    footer p {
+      margin-bottom: 1rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      nav {
+        justify-content: space-around;
+        padding: 0.5rem;
+      }
+
+      nav a {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .training-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 3rem 1rem;
+      }
+
+      nav a {
+        flex: 1 0 45%;
+        text-align: center;
+        margin: 0.2rem;
+      }
+
+      .training-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Erişilebilirlik için atlama bağlantısı -->
+  <a href="#main-content" class="skip-link">Ana içeriğe atla</a>
+
+  <!-- Arka Plan Video -->
+  <video autoplay muted loop class="background-video" aria-hidden="true">
+    <source src="assets/videos/matrix-rain.mp4" type="video/mp4">
+    <source src="assets/videos/matrix-rain.webm" type="video/webm">
+    Tarayıcınız video öğesini desteklemiyor.
+  </video>
+
+  <header>
+    <h1>Siber Kılavuz</h1>
+    <p>Dijital dünyada güvenliğiniz için profesyonel çözümler</p>
+  </header>
+
+  <nav>
+    <a href="#home" onclick="showSection('home')" class="active">
+      <i class="fas fa-home"></i> Ana Sayfa
+    </a>
+    <a href="#about" onclick="showSection('about')">
+      <i class="fas fa-info-circle"></i> Hakkımızda
+    </a>
+    <a href="#services" onclick="showSection('services')">
+      <i class="fas fa-cogs"></i> Hizmetler
+    </a>
+    <a href="#trainings" onclick="showSection('trainings')">
+      <i class="fas fa-graduation-cap"></i> Eğitimler
+    </a>
+    <a href="#contact" onclick="showSection('contact')">
+      <i class="fas fa-envelope"></i> İletişim
+    </a>
+  </nav>
+
+  <main id="main-content" class="container">
+    <!-- Ana Sayfa -->
+    <section id="home" class="section active-section">
+      <h2>Siber Güvenlikte Öncü Çözümler</h2>
+      <p>Siber Kılavuz, bireyler ve kurumlar için kapsamlı siber güvenlik çözümleri sunar. Uzman ekibimizle dijital varlıklarınızı koruma altına alıyoruz.</p>
+      
+      <div class="training-card">
+        <h3>Yeni Başlayanlar İçin Siber Güvenlik</h3>
+        <p>Alanında uzman eğitmenlerimizle temel siber güvenlik bilgilerini öğrenin ve kendinizi dijital tehditlere karşı koruyun.</p>
+        <a href="#trainings" onclick="showSection('trainings')" class="btn">Eğitimleri Görüntüle</a>
+      </div>
+    </section>
+
+    <!-- Hakkımızda -->
+    <section id="about" class="section">
+      <h2>Hakkımızda</h2>
+      <div class="training-card">
+        <h3>Biz Kimiz?</h3>
+        <p>Siber Kılavuz, 2015 yılından bu yana siber güvenlik alanında hizmet veren bir danışmanlık ve eğitim firmasıdır. Alanında uzman kadromuzla bireylere ve kurumlara özel çözümler sunuyoruz.</p>
+      </div>
+      
+      <div class="training-card">
+        <h3>Vizyonumuz</h3>
+        <p>Dijital dünyada güvenli bir ekosistem oluşturmak ve herkesin siber güvenlik bilincine sahip olmasını sağlamak temel hedefimizdir.</p>
+      </div>
+    </section>
+
+    <!-- Hizmetler -->
+    <section id="services" class="section">
+      <h2>Hizmetlerimiz</h2>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-shield-alt"></i> Kurumsal Güvenlik Denetimi</h3>
+        <p>Kurumunuzun siber güvenlik altyapısını detaylı şekilde analiz ediyor, zafiyetleri tespit ediyor ve çözüm önerileri sunuyoruz.</p>
+      </div>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-user-secret"></i> Penetrasyon Testleri</h3>
+        <p>Etik hackerlarımızla sistemlerinizi gerçek bir saldırgan gözüyle test ediyor, güvenlik açıklarını raporluyoruz.</p>
+      </div>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-lock"></i> Uçtan Uca Şifreleme Çözümleri</h3>
+        <p>Kurumsal verilerinizin güvenliğini en üst seviyeye çıkaran şifreleme sistemleri sunuyoruz.</p>
+      </div>
+    </section>
+
+    <!-- Eğitimler -->
+    <section id="trainings" class="section">
+      <h2>Eğitim Programlarımız</h2>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-laptop-code"></i> Temel Siber Güvenlik Eğitimi</h3>
+        <p>12 haftalık yoğun program ile siber güvenliğin temellerini öğrenin. Canlı dersler, uygulamalı laboratuvarlar ve gerçek senaryolarla kendinizi geliştirin.</p>
+        <p><strong>Eğitim İçeriği:</strong> Ağ güvenliği, şifreleme, sosyal mühendislik savunma teknikleri, temel siber hijyen</p>
+        <a href="#contact" onclick="showSection('contact')" class="btn">Kayıt Ol</a>
+      </div>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-user-secret"></i> Sertifikalı Etik Hacker Eğitimi</h3>
+        <p>6 aylık kapsamlı program ile siber güvenlik dünyasına adım atın. CEH sertifikasına hazırlık dahil.</p>
+        <p><strong>Eğitim İçeriği:</strong> Penetrasyon testleri, zafiyet tarama, exploit geliştirme, yasal süreçler</p>
+        <a href="#contact" onclick="showSection('contact')" class="btn">Kayıt Ol</a>
+      </div>
+      
+      <div class="training-card">
+        <h3><i class="fas fa-briefcase"></i> Kurumsal Farkındalık Eğitimleri</h3>
+        <p>Çalışanlarınıza özel hazırlanmış, kurumunuza özgü tehditleri içeren siber güvenlik farkındalık eğitimleri.</p>
+        <p><strong>Eğitim İçeriği:</strong> Oltalama saldırıları, sosyal mühendislik, güvenli iletişim, veri koruma</p>
+        <a href="#contact" onclick="showSection('contact')" class="btn btn-outline">Detaylı Bilgi</a>
+      </div>
+    </section>
+
+    <!-- İletişim -->
+    <section id="contact" class="section">
+      <h2>Bize Ulaşın</h2>
+      
+      <div class="training-card">
+        <h3>İletişim Bilgileri</h3>
+        <p><i class="fas fa-envelope"></i> <strong>E-posta:</strong> info@siberkilavuz.com</p>
+        <p><i class="fas fa-phone"></i> <strong>Telefon:</strong> +90 555 123 45 67</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Adres:</strong> Teknopark İstanbul, Pendik/İstanbul</p>
+        
+        <div class="social-links">
+          <a href="https://www.instagram.com/siber_kilavuz" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://twitter.com/siberkilavuz" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/siberkilavuz" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/siberkilavuz" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="training-card">
+        <h3>İletişim Formu</h3>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Adınız Soyadınız</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta Adresiniz</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Konu</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Mesajınız</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn">Gönder</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Siber Kılavuz &copy; 2025 - Tüm hakları saklıdır.</p>
+    <p>Profesyonel siber güvenlik çözümleri</p>
+    <div class="social-links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top" aria-label="Yukarı çık">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script>
+    // Sayfa yüklendiğinde çalışacak fonksiyonlar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Aktif bölümü ayarla
+      showSection('home');
+      
+      // Nav linklerine aktif sınıfını ekle
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // Form gönderimi
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Mesajınız başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.');
+          this.reset();
+        });
+      }
+      
+      // Yukarı dön butonu
+      const backToTop = document.querySelector('.back-to-top');
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+      
+      backToTop.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Bölüm gösterme fonksiyonu
+    function showSection(id) {
+      // Tüm bölümleri gizle
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active-section');
+      });
+      
+      // İlgili bölümü göster
+      const section = document.getElementById(id);
+      if (section) {
+        section.classList.add('active-section');
+        
+        // Eğer mobildeysek, navigasyon menüsünün altına kaydır
+        if (window.innerWidth < 768) {
+          setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+      
+      // URL hash'ini güncelle
+      history.pushState(null, null, `#${id}`);
+    }
+    
+    // Hash değişikliklerini dinle
+    window.addEventListener('hashchange', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        showSection(hash);
+      }
+    });
+  </script>
+</body>
+</html>
